@@ -1,0 +1,25 @@
+<div class="w-64 h-screen bg-zinc-900 flex flex-col justify-between p-10">
+  <div>
+    <a href="{{url_for('main.new_room')}}">Create new room +</a>
+    {% if rooms %}
+    <div class="my-10 flex flex-col">
+      {% for room in rooms %} {% if current_room and current_room.id == room.id %}
+      <a
+        href="{{url_for('main.room', room_id=room.id)}}"
+        class="my-2 text-cyan-400 font-medium text-md"
+      >
+        {{room.name}}
+      </a>
+      {% else %}
+      <a
+        href="{{url_for('main.room', room_id=room.id)}}"
+        class="my-2 text-white font-medium text-md"
+      >
+        {{room.name}}
+      </a>
+      {% endif %} {% endfor %}
+    </div>
+    {%endif %}
+  </div>
+  <a href="{{url_for('main.logout')}}" class="my-2 btn text-cyan-400">Logout</a>
+</div>

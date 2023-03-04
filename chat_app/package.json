@@ -1,0 +1,13 @@
+{
+  "name": "chat_app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Elias",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.2.7"
+  },
+  "dependencies": {
+    "daisyui": "^2.51.3"
+  }
+}

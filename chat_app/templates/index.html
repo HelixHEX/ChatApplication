@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+<div class="bg-zinc-900 flex flex-col justify-center h-screen items-center">
+  <h1 class="text-3xl">Welcome to ChatUP!</h1>
+  <p class="my-1 text-gray-500 text-xl">A simple chat app</p>
+  <div class="my-5">
+    <a href="{{url_for('main.login')}}" class="my-2 btn">Login</a>
+    <a href="{{url_for('main.signup')}}" class="ml-3 my-2 btn">Signup</a>
+  </div>
+</div>
+{% endblock %}
