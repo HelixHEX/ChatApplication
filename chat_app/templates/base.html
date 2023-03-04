@@ -3,13 +3,10 @@
   <head>
     <title>Chatup</title>
     <link href="../static/dist/output.css" rel="stylesheet">
-    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
   </head>
   <body class="bg-black h-screen">
     <div id="flex">
-      <!-- {% for message in get_flashed_messages() %}
-        {{ message}}
-      {% endfor %} -->
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <ul class="w-screen absolute bottom-0 flashed p-10">
@@ -35,8 +32,6 @@
       {% endwith %}
 
       {%block content%}{%endblock%}
-    </div>
-    <script src="/static/index.js"></script>
-    
+    </div>    
   </body>
 </html>

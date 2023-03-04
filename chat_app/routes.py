@@ -3,8 +3,11 @@ from chat_app.forms import SignupForm, LoginForm, NewRoomForm
 from chat_app import db
 from flask_bcrypt import Bcrypt
 from chat_app import app
-from chat_app.models import User, Room
+from chat_app.models import User, Room, Message
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_socketio import SocketIO, emit, send, join_room, leave_room
+
+
 
 main = Blueprint('main', __name__)
 
@@ -13,6 +16,19 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'main.login'
+    
+socketio = SocketIO(app)
+
+@socketio.on('join')
+def join(data):
+    join_room(data['room_id'])
+
+@socketio.on('message')
+def message(message):
+    emit('message', message, broadcast=True, room=message['room_id'])
+    message = Message(text=message['message'], sender_id=message['sender_id'], room_id=message['room_id'])
+    db.session.add(message)
+    db.session.commit()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -51,10 +67,10 @@ def chat():
 def room(room_id):
     room = Room.query.filter_by(id=room_id).first()
     rooms = User.query.filter_by(username=current_user.username).first().rooms
-
+    messages = Message.query.filter_by(room_id=room_id).all()
     if room:
         if current_user in room.members:
-          return render_template('room.html', current_room=room, rooms=rooms)
+          return render_template('room.html', current_room=room, rooms=rooms, messages=messages, userid=current_user.id)
         else:
           return redirect(url_for('main.chat'))
     else:
@@ -80,7 +96,9 @@ def login():
                 login_user(user)
                 return redirect(url_for('main.chat'))
             else:
-                flash('Incorrect password. Please try again.', 'error')
+                flash('Incorrect username/password.', 'error')
+        else: 
+            flash('Incorrect username/password.', 'error')
             
     return render_template('login.html', form=form)
 

@@ -1,19 +1,19 @@
-<div class="w-64 h-screen bg-zinc-900 flex flex-col justify-between p-10">
+<div class="w-64 h-screen bg-zinc-900 flex flex-col justify-between p-10 pb-1">
   <div>
-    <a href="{{url_for('main.new_room')}}">Create new room +</a>
+    <a class=" hover:text-cyan-400 hover:cursor-pointer text-white" href="{{url_for('main.new_room')}}">Create new room +</a>
     {% if rooms %}
     <div class="my-10 flex flex-col">
       {% for room in rooms %} {% if current_room and current_room.id == room.id %}
       <a
         href="{{url_for('main.room', room_id=room.id)}}"
-        class="my-2 text-cyan-400 font-medium text-md"
+        class="my-2 btn ghost text-cyan-400 font-medium text-md"
       >
         {{room.name}}
       </a>
       {% else %}
       <a
         href="{{url_for('main.room', room_id=room.id)}}"
-        class="my-2 text-white font-medium text-md"
+        class="my-2 hover:text-cyan-400 hover:cursor-pointer text-white font-medium text-md"
       >
         {{room.name}}
       </a>

@@ -2,13 +2,15 @@
 
 {% block content %}
 <div class="bg-zinc-900 flex flex-col justify-center h-screen items-center">
-  <h1 class="text-3xl">Signup</h1>
+  <h1 class="text-3xl text-white">Signup</h1>
   <form class="my-2 flex flex-col" method="POST" action="">
     {{form.hidden_tag()}}
-    {{form.name}}
-    {{form.username}}
-    {{form.password}}
-    {{form.submit}}
+    {{form.name(class_='my-2 input input-bordered w-full max-w-xs')}}
+    {{form.username(class_='my-2 input input-bordered w-full max-w-xs')}}
+    {{form.password(class_='my-2 input input-bordered w-full max-w-xs')}}
+    {{form.submit(class_='my-2 btn text-cyan-400')}}
   </form>
+  <a href="{{url_for('main.login')}}" class="link link-hover">Alaread a user? <span class="text-cyan-400">Login</span></a>
+
 </div>
 {% endblock %}

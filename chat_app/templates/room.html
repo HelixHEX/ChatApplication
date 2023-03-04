@@ -1,18 +1,18 @@
 {% extends 'base.html' %} 
 {% block content %}
-<div class="flex w-screen ">
+<div class="bg-zinc-900 flex w-screen h-full">
   {% include 'partials/chatbox.html' %}
-  <div class="bg-red-100 w-full">
+  <div class="p-3 flex flex-col w-full justify-between">
     <div id="messages" class="flex flex-col">
       {% if messages %}
       {% for message in messages %}
         {% if message.sender_id == current_user.id %}
           <div class="chat chat-end">
-            <div class="chat-bubble chat-bubble-accent">That's never been done in the history of the Jedi. It's insulting!</div>
+            <div class="chat-bubble chat-bubble-info">{{message.text}}</div>
           </div>
         {% else %}
           <div class="chat chat-start">
-            <div class="chat-bubble chat-bubble-accent">That's never been done in the history of the Jedi. It's insulting!</div>
+            <div class="chat-bubble">{{message.text}}</div>
           </div>
         {% endif %}
       {% endfor %}
@@ -20,9 +20,9 @@
     </div>
     <div class="form-control w-full bottom-0">
       <div class="input-group">
-        <input type="text" placeholder="Start typing..." class="input input-bordered w-full" />
-        <button class="btn btn-square">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        <input data-userid="{{userid}}" data-roomid="{{current_room.id}}" id="message" type="text" placeholder="Start typing..." class="input input-bordered w-full" />
+        <button id='send' class="btn btn-square">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16"> <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/> </svg>         
         </button>
       </div>
     </div>
