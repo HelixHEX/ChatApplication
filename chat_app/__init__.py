@@ -4,9 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chatap.db'
 app.config['SECRET_KEY'] = 'secretkey'
-
 db = SQLAlchemy(app)
 
+app.app_context().push()
 from chat_app.routes import main
 
 app.register_blueprint(main)
