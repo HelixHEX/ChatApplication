@@ -92,6 +92,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
+            print(user.password)
             if bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user)
                 return redirect(url_for('main.chat'))
@@ -108,7 +109,8 @@ def signup():
     form = SignupForm()
 
     if form.validate_on_submit():
-        hashed_pass = bcrypt.generate_password_hash(form.password.data)
+        hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+
         new_user = User(name=form.name.data, username=form.username.data, password=hashed_pass)
         
         #Join user to general room with room id 1

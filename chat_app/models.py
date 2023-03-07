@@ -5,7 +5,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     rooms_created = db.relationship('Room', secondary='user_created_rooms_table', back_populates='creator')
     rooms = db.relationship('Room', secondary='room_members_table', back_populates='members')
     
